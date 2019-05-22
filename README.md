@@ -1,2 +1,2 @@
 # fableplay
-Virtual Pet
+Virtual Pet site being worked on as a hobby project.
