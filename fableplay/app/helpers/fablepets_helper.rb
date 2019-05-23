@@ -1,0 +1,2 @@
+module FablepetsHelper
+end

@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+
+<img src = <%= @img_string %> >
+
+<p>
+  <strong>Name:</strong>
+  <%= @fablepet.name %>
+</p>
+
+<p>
+  <strong>Unique:</strong>
+  <%= @fablepet.unique_id %>
+</p>
+
+<p>
+  <strong>Species:</strong>
+  <%= @fablepet.species %>
+</p>
+
+<p>
+  <strong>Pattern:</strong>
+  <%= @fablepet.pattern %>
+</p>
+
+<p>
+  <strong>Colors:</strong>
+  <%= @fablepet.colors %>
+</p>
+
+<%= link_to 'Edit', edit_fablepet_path(@fablepet) %> |
+<%= link_to 'Back', fablepets_path %>
