@@ -23,7 +23,7 @@ require 'mini_magick'
 		when 3
 			return '#c56303' #orange
 		when 4
-			return '#c6b529' #yellow
+			return '#dbbc2d' #yellow
 		when 5
 			return '#59c629' #lime
 		when 6
@@ -52,7 +52,7 @@ require 'mini_magick'
 
 	def get_color (color_id)
 		img = MiniMagick::Image.open('public/images/fables/colors/' + String(color_id) + '.png')
-		img.resize "900x900"
+		img.resize "750x750"
 		return img
 	end
 
@@ -63,9 +63,6 @@ require 'mini_magick'
 
 	    lines = MiniMagick::Image.open(basedir + '/lines.png')
 	    primary = MiniMagick::Image.open(basedir + '/patterns/' + String(self.pattern) + '/primary.png')
-	    primary = primary.draw(colorguide(3))
-	    #primary.fill(colorguide(13))
-    	#primary.colorize(100)
     	primary = primary.composite(get_color(self.colors[0]), 'png') do |c|
 		  c.compose 'Atop'
 		end
@@ -75,9 +72,6 @@ require 'mini_magick'
 		  c.compose 'Atop'
 		end
 	    tertiary = MiniMagick::Image.open(basedir + '/patterns/' + String(self.pattern) + '/tertiary.png')
-	 #    tertiary = tertiary.composite(get_color(self.color[1], 'png') do |c|
-		#   c.compose 'Atop'
-		# end
 	    
 	    img = tertiary.composite(secondary)
 	    img = img.composite(primary)
