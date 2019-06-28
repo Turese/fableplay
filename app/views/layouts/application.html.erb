@@ -1,8 +1,16 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>FablePlay</title>
-    <%= csrf_meta_tags %>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <title>FablePlay - {PAGE_TITLE}</title>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+  <meta name="author" content="Turese Anderson" />
+  <meta name="Description" content="{SITE_DESCRIPTION}">
+  <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all',
                                               'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -10,17 +18,50 @@
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
       </script>
     <![endif]-->
-  </head>
-  <body>
-    <nav>
-      <div class="leftnav">
-      	<li><%= link_to "Home", '/', id: "logo" %></li>
-      	<li><%= link_to "Sign up", '#' %></li>
-        <li><%= link_to "Log in", '#' %></li>
+
+
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="userprofilesidebar">
+    <% if current_user %>
+      <div class="userprofileboxsidebar">
+        <div class="useravatarsidebar">
+          <img src= "http://images.neopets.com/neoboards/avatars/kauvara.gif">
+        </div>
+          <div class="userinfosidebar">
+            <%= link_to current_user.username, user_path(current_user.username) %></a> <br>
+            <font size=1><a href="#MONEY"> xx,xxx,xxx,xxx,xxx,xxx FP</a></font> <br>
+            <font size=1><a href="#MONEY"> xx,xxx,xxx,xxx,xxx,xxx MP</a></font> <br>
+            <font size=1><a href="#MONEY"> ??? AP</a></font>
+          </div>
+
+        <center>Settings | <%= link_to 'Log Out', logout_path %></center>
       </div>
-    </nav>
-    <div class="mainbody">
-      <%= yield %>
     </div>
-  </body>
-</html>
+    <div class="petsidebar">
+      <img src="https://fableplay.herokuapp.com/images/fables/pets/Shale.png" width="200">
+    </div>
+  <% end %>
+  <div class="sidenav">
+    <% if current_user %>
+    <%= link_to 'Your Fablepets', fablepets_path %>
+    <a href="#2">Inventory</a>
+    <a href="#3">Marketplace</a>
+    <% else %>
+    <%= link_to 'Sign Up', signup_path %>
+    <%= link_to 'Log In', login_path %>
+    <% end %>
+    <a href="#4">Explore</a>
+    <a href="#5">News</a>
+    <a href="#6">Forums</a>
+  </div>
+</div>
+
+<div class="mainbody">
+  <%= yield %>
+</div>
+   
+</body>
+</html> 

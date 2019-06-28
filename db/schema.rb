@@ -11,27 +11,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190524014324) do
+ActiveRecord::Schema.define(version: 20190602035250) do
 
-  create_table "fablepets", force: :cascade do |t|
+  create_table "fablepets", id: false, force: :cascade do |t|
+    t.string   "unique_name",   null: false
     t.string   "name"
-    t.string   "unique_id"
     t.integer  "species"
-    t.string   "pattern"
+    t.integer  "pattern"
     t.string   "colors"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "curr_colors"
+    t.string   "elements"
+    t.string   "curr_elements"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "level"
+    t.integer  "hp"
+    t.integer  "curr_hp"
+    t.integer  "attack"
+    t.integer  "defense"
+    t.integer  "magic_attack"
+    t.integer  "magic_defense"
+    t.integer  "mp"
+    t.integer  "curr_mp"
+    t.integer  "charisma"
+    t.integer  "agility"
+    t.integer  "speed"
+    t.string   "username"
   end
 
-  create_table "users", force: :cascade do |t|
+  add_index "fablepets", ["unique_name"], name: "index_fablepets_on_unique_name", unique: true
+
+  create_table "users", id: false, force: :cascade do |t|
     t.string   "email"
-    t.string   "username"
+    t.string   "username",        null: false
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["username"], name: "index_users_on_username", unique: true
 
 end

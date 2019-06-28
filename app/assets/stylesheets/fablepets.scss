@@ -1,3 +1,25 @@
-// Place all the styles related to the fablepets controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.petartbox {
+  height: 100%;
+  min-height: wrap-content;
+  width: 300px;
+  margin: 5px;
+  float: left;
+  z-index: 1;
+  overflow-x: hidden;
+}
+
+.selectorbox {
+  height: 100%;
+  min-height: wrap-content;
+  margin-left: 300px;
+  z-index: 1;
+  overflow-x: hidden;
+}
+
+.lineartselector {
+  min-height: wrap-content;
+  z-index: 0;
+  margin: 5px;
+  overflow-x: hidden;
+}

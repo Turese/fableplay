@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Unique</th>
+      <th>ID</th>
       <th>Species</th>
       <th>Pattern</th>
       <th>Colors</th>
@@ -18,13 +18,11 @@
     <% @fablepets.each do |fablepet| %>
       <tr>
         <td><%= fablepet.name %></td>
-        <td><%= fablepet.unique_id %></td>
+        <td><%= fablepet.unique_name %></td>
         <td><%= fablepet.species %></td>
         <td><%= fablepet.pattern %></td>
         <td><%= fablepet.colors %></td>
-        <td><%= link_to 'Show', fablepet %></td>
-        <td><%= link_to 'Edit', edit_fablepet_path(fablepet) %></td>
-        <td><%= link_to 'Destroy', fablepet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', fablepet_path(fablepet.unique_name) %></td>
       </tr>
     <% end %>
   </tbody>

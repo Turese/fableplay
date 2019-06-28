@@ -1,5 +1,24 @@
-<h1>New Fablepet</h1>
+<center><h1>Create a new Fablepet</h1></center>
 
-<%= render 'form' %>
+
+<div class="petartbox">
+<center>
+	<h3><% @selected %></h3> 
+	<img src = <%= "/assets/fables/bases/" + String(@selected) + "/full.png" %> width="280" border="5">
+	Species blurb. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</center>
+</div>
+
+<div class="selectorbox">
+ <div class="lineartselector">
+ 	<% basic_species.each do |i|%>
+ 		<%if i == @selected %>
+ 			<img src = <%= "/assets/fables/bases/" + String(i) + "/full.png" %> width="100" border="5">
+ 		<% else %>
+ 			<img src = <%= "/assets/fables/bases/" + String(i) + "/full.png" %> width="100"  style="opacity:0.4;filter:alpha(opacity=40);">
+ 		<% end %>
+ 	<% end %>
+ </div>
+ <%= render 'form' %>
+</div>
 
 <%= link_to 'Back', fablepets_path %>

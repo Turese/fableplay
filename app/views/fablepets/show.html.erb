@@ -10,17 +10,22 @@
 
 <p>
   <strong>Unique:</strong>
-  <%= @fablepet.unique_id %>
+  <%= @fablepet.unique_name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @fablepet.username %>
 </p>
 
 <p>
   <strong>Species:</strong>
-  <%= @fablepet.species %>
+  <%= @fablepet.get_species(@fablepet.species) %>
 </p>
 
 <p>
   <strong>Pattern:</strong>
-  <%= @fablepet.pattern %>
+  <%= @fablepet.get_pattern(@fablepet.pattern) %>
 </p>
 
 <p>
@@ -28,5 +33,4 @@
   <%= @fablepet.colors %>
 </p>
 
-<%= link_to 'Edit', edit_fablepet_path(@fablepet) %> |
 <%= link_to 'Back', fablepets_path %>

@@ -1,7 +1,7 @@
 <%= form_for(@fablepet) do |f| %>
   <% if @fablepet.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@fablepet.errors.count, "error") %> prohibited this fablepet from being saved:</h2>
+      <h2><%= pluralize(@fablepet.errors.count, "error") %> prohibited this fablepet from being created:</h2>
 
       <ul>
       <% @fablepet.errors.full_messages.each do |message| %>
@@ -12,24 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :Nickname %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :unique_id %><br>
-    <%= f.text_field :unique_id %>
+    <%= f.label :Name %><br>
+    <%= f.text_field :unique_name %>
   </div>
   <div class="field">
-    <%= f.label :species %><br>
-    <%= f.number_field :species %>
-  </div>
-  <div class="field">
-    <%= f.label :pattern %><br>
-    <%= f.text_field :pattern %>
-  </div>
-  <div class="field">
-    <%= f.label :colors %><br>
-    <%= f.text_field :colors %>
+    <%= f.label :elements %><br>
+    <%= f.text_field :elements %>
   </div>
   <div class="actions">
     <%= f.submit %>
