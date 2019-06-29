@@ -11,7 +11,24 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="lineartselector">
+  <% basic_species.each do |i|%>
+    <%if i == @selected_species %>
+      <img src = <%= "/assets/fables/bases/" + String(i) + "/full.png" %> 
+      width="100" 
+      border="5" 
+      img id= <%= String(i)%> 
+      >
+    <% else %>
+      <img src = <%= "/assets/fables/bases/" + String(i) + "/full.png" %> 
+      width="100" 
+      img id= <%= String(i)%> 
+      style="opacity:0.4;filter:alpha(opacity=40)"
+      >
+    <% end %>
+  <% end %>
+ </div>
+ <div class="field">
     <%= f.label :Nickname %><br>
     <%= f.text_field :name %>
   </div>
@@ -19,10 +36,21 @@
     <%= f.label :Name %><br>
     <%= f.text_field :unique_name %>
   </div>
-  <div class="field">
-    <%= f.label :elements %><br>
-    <%= f.text_field :elements %>
-  </div>
+ <% basic_elements.each do |i|%>
+    <%if i == @selected_element %>
+    <img src = <%= "/assets/elements/" + String(i) + ".png"%> 
+      width="30" 
+      img id= <%= 'e' + String(i)%> 
+      >
+    <% else %>
+    <img src = <%= "/assets/elements/" + String(i) + ".png"%> 
+      width="30" 
+      img id= <%= 'e' + String(i)%> 
+      style="opacity:0.4;filter:alpha(opacity=20)"
+      >
+    <% end %>
+  <% end %>
+<br>Element: <%= get_element(@selected_element)%>
   <div class="actions">
     <%= f.submit %>
   </div>

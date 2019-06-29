@@ -17,7 +17,10 @@ class FablepetsController < ApplicationController
   # GET /fablepets/new
   def new
     @fablepet = Fablepet.new
-    @selected = basic_species.sample
+    @selected_species = basic_species.sample
+    @selected_element = basic_elements.sample
+    @selected_primary = basic_colors.sample
+    @selected_secondary = basic_colors.sample
     @curr_species = @curr_species
   end
 

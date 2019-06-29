@@ -1,24 +1,174 @@
 <center><h1>Create a new Fablepet</h1></center>
 
 
-<div class="petartbox">
-<center>
-	<h3><% @selected %></h3> 
-	<img src = <%= "/assets/fables/bases/" + String(@selected) + "/full.png" %> width="280" border="5">
-	Species blurb. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</center>
+<div class="petartbox" id="petart">
+	<center>
+		<h1><%= get_species(@selected_species)%></h1> 
+			<img src = <%= create_custom_pet(@selected_primary, @selected_secondary, 0, 0, @selected_species, @selected_element, "username") %> width="280" border="5">
+		<%= File.read("public/assets/fables/bases/" + String(@selected_species) + "/blurb.txt") %>
+	</center>
 </div>
 
 <div class="selectorbox">
- <div class="lineartselector">
- 	<% basic_species.each do |i|%>
- 		<%if i == @selected %>
- 			<img src = <%= "/assets/fables/bases/" + String(i) + "/full.png" %> width="100" border="5">
- 		<% else %>
- 			<img src = <%= "/assets/fables/bases/" + String(i) + "/full.png" %> width="100"  style="opacity:0.4;filter:alpha(opacity=40);">
- 		<% end %>
- 	<% end %>
- </div>
- <%= render 'form' %>
+<%= form_for(@fablepet) do |f| %>
+	<div class="lineartselector">
+		<% basic_species.each do |i|%>
+			<%if i == @selected_species %>
+				<img src = <%= "/assets/fables/bases/" + String(i) + "/full.png" %> 
+					width="100" 
+					border="5" 
+					img id= <%= String(i)%> 
+					style="border-color: #3d3d3d"
+				>
+			<% else %>
+				<img src = <%= "/assets/fables/bases/" + String(i) + "/full.png" %> 
+					width="100" 
+					img id= <%= String(i)%> 
+					border="5" 
+					style="border-color: #FFFFFF; opacity:0.4;filter:alpha(opacity=40);"
+				>
+			<% end %>
+		<% end %>
+	</div>
+
+	<div class="colorselector">
+		<h3>Primary Color</h3>
+		<% basic_colors.each do |i|%>
+			<%if i == @selected_primary %>
+				<img src = <%= "/assets/fables/colors/" + String(i) + ".png"%> 
+					width="30" 
+					img id= <%= 'p' + String(i)%> 
+					border="5" 
+					style="border-color: #FFFFFF"
+				>
+			<% else %>
+				<img src = <%= "/assets/fables/colors/" + String(i) + ".png"%> 
+					width="30" 
+					img id= <%= 'p' + String(i)%> 
+					border="5" 
+					style="border-color: #3d3d3d"
+				>
+			<% end %>
+		<% end %>
+	</div>
+	<div class="colorselector">
+		<h3>Secondary Color</h3>
+		<% basic_colors.each do |i|%>
+			<%if i == @selected_secondary %>
+				<img src = <%= "/assets/fables/colors/" + String(i) + ".png"%> 
+					width="30" 
+					img id= <%= 's' + String(i)%> 
+					border="5" 
+					style="border-color: #ffffff"
+				>
+			<% else %>
+				<img src = <%= "/assets/fables/colors/" + String(i) + ".png"%> 
+					width="30" 
+					img id= <%= 's' + String(i)%> 
+					border="5"
+					style="border-color: #3d3d3d"
+				>
+			<% end %>
+		<% end %>
+	</div>
+
+	<div class="elementselector">
+		<div id="elementname"> <h3>Element: <%= get_element(@selected_element)%></h3> </div>
+		<% basic_elements.each do |i|%>
+			<%if i == @selected_element %>
+				<img src = <%= "/assets/elements/" + String(i) + ".png"%> 
+					width="30" 
+					img id= <%= 'e' + String(i)%> 
+				>
+			<% else %>
+				<img src = <%= "/assets/elements/" + String(i) + ".png"%> 
+					width="30" 
+					img id= <%= 'e' + String(i)%> 
+					opacity = "0.4"
+  					style="opacity:0.4;filter:alpha(opacity=40);"
+				>
+			<% end %>
+		<% end %>
+	</div>
+
+	<div class="field">
+	    <%= f.label :Nickname %><br>
+	    <%= f.text_field :name %>
+	</div>
+
+	<div class="field">
+		<%= f.label :Name %><br>
+		<%= f.text_field :unique_name %> <input type="button" name="validifybutton" value="Verify Name" onClick="verifyName()">
+	</div>
+  
+	<%= hidden_field_tag(:species, @selected_species) %>
+	<%= hidden_field_tag(:element, @selected_element) %>
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+  <% end %>
 </div>
+
+<script>
+	function updateDiv(divName) {
+	var container = document.getElementById(divName);
+    var content = container.innerHTML;
+    console.log("updoot");
+    container.innerHTML= content; 
+
+	}
+</script>
+
+<script>
+	<% basic_species.each do |i|%>
+	$(document).on('click', '#' + <%=String(i)%>, function() { 
+		<% basic_species.each do |species|%>
+			var specieselement = document.getElementById(<%= String(species)%>);
+			specieselement.style.opacity = "0.4"
+			specieselement.style.borderColor="#FFFFFF";
+		<% end %>
+		var selectedelement = document.getElementById( <%= String(@selected_species = i)%>);
+		selectedelement.style.opacity = "1.0"
+		selectedelement.style.borderColor="#3d3d3d";
+		updateDiv("petart");
+	});
+	<% end %>
+</script>
+
+<script>
+	<% basic_elements.each do |i|%>
+	$(document).on('click', '#e' + <%= String(i)%>, function() { 
+		<% basic_elements.each do |ele|%>
+			document.getElementById('e' + <%= String(ele)%>).style.opacity = "0.4"
+		<% end %>
+		document.getElementById('e' + <%= String(@selected_element = i)%>).style.opacity = "1.0"
+		updateDiv("petart");
+	});
+	<% end %>
+</script>
+
+<script>
+	<% basic_colors.each do |i|%>
+	$(document).on('click', '#p' + <%= String(i) %>, function() { 
+		<% basic_colors.each do |color|%>
+			document.getElementById('p' + <%= String(color)%>).style.borderColor="#3d3d3d";
+		<% end %>
+		document.getElementById('p' + <%= String(@selected_primary = i)%>).style.borderColor="#FFFFFF";
+		updateDiv("petart");
+	});
+	<% end %>
+</script>
+
+<script>
+	<% basic_colors.each do |i|%>
+	$(document).on('click', '#s' + <%= String(i) %>, function() {
+		<% basic_colors.each do |color|%>
+			document.getElementById('s' + <%= String(color)%>).style.borderColor="#3d3d3d";
+		<% end %>
+		document.getElementById('s' + <%= String(@selected_secondary = i)%>).style.borderColor="#FFFFFF";
+		updateDiv("petart");
+	});
+	<% end %>
+</script>
 
 <%= link_to 'Back', fablepets_path %>

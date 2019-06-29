@@ -12,14 +12,36 @@
 .selectorbox {
   height: 100%;
   min-height: wrap-content;
-  margin-left: 300px;
+  margin-left: 350px;
   z-index: 1;
   overflow-x: hidden;
 }
 
-.lineartselector {
+h3 {
+  margin-top:20px;
+  margin-bottom:5px;
+}
+
+.elementselector .lineartselector  {
   min-height: wrap-content;
   z-index: 0;
-  margin: 5px;
   overflow-x: hidden;
+
+  img {
+    float: left;
+  }
 }
+
+.colorselector  {
+  min-height: wrap-content;
+  z-index: 0;
+  overflow-x: hidden;
+  img {
+    float: left;
+  }
+}
+
+
+
+
+
