@@ -1,11 +1,14 @@
 <center><h1>Create a new Fablepet</h1></center>
 
 
-<div class="petartbox" id="petart">
+<div class="petartbox">
 	<center>
-		<h1><%= get_species(@selected_species)%></h1> 
-			<img src = <%= create_custom_pet(@selected_primary, @selected_secondary, 0, 0, @selected_species, @selected_element, "username") %> width="280" border="5">
-		<%= File.read("public/assets/fables/bases/" + String(@selected_species) + "/blurb.txt") %>
+		<div class="petname" id="petname"></div>
+		<div class="petimage" id="petimage">
+			 <canvas id="pet_canvas" width="280" height="280"></canvas>
+			 <canvas id="hidden_canvas" width="280" height="280" style="display:none;"></canvas>
+		</div>
+		<div class="petblurb" id="petblurb"></div>
 	</center>
 </div>
 
@@ -73,7 +76,7 @@
 	</div>
 
 	<div class="elementselector">
-		<div id="elementname"> <h3>Element: <%= get_element(@selected_element)%></h3> </div>
+		<div id="elementname"></div>
 		<% basic_elements.each do |i|%>
 			<%if i == @selected_element %>
 				<img src = <%= "/assets/elements/" + String(i) + ".png"%> 
@@ -92,13 +95,14 @@
 	</div>
 
 	<div class="field">
-	    <%= f.label :Nickname %><br>
+	    <h3>Nickname</h3>
 	    <%= f.text_field :name %>
 	</div>
 
 	<div class="field">
-		<%= f.label :Name %><br>
-		<%= f.text_field :unique_name %> <input type="button" name="validifybutton" value="Verify Name" onClick="verifyName()">
+		<h3>Name</h3>
+		<%= f.text_field :unique_name %> <input type="button" name="validifybutton" value="Verify Name" onClick="verify_name()"> 
+		<div class="verify_message" id="verify_message"></div>
 	</div>
   
 	<%= hidden_field_tag(:species, @selected_species) %>
@@ -110,63 +114,144 @@
 </div>
 
 <script>
-	function updateDiv(divName) {
-	var container = document.getElementById(divName);
-    var content = container.innerHTML;
-    console.log("updoot");
-    container.innerHTML= content; 
+	var selected_species = <%= @selected_species %>;
+	var selected_element = <%= @selected_element %>;
+	var selected_primary = <%= @selected_primary %>;
+	var selected_secondary = <%= @selected_secondary %>;
+
+
+	$(document).ready(function() {
+		update_element();
+    	update_species();
+	});
+
+	function verify_name() {
+		var verify_message = document.getElementById("verify_message");
+		var name = document.getElementById('fablepet_unique_name').value;
+		if (true) {
+			verify_message.innerHTML = "<font color='#0000FF'>Name '" + name +"' is valid!</font>"
+		} else {
+			verify_message.innerHTML = "<font color='#FF0000'>Name '" + name +"' is taken by another fablepet.</font>"
+		}
 
 	}
-</script>
 
-<script>
+	function update_image() {
+		var c = document.getElementById("pet_canvas");
+		var c2 = document.getElementById("hidden_canvas");
+		var context = c.getContext("2d");
+		var context2 = c2.getContext("2d");
+		var primary_color = "#FFFFFF";
+		var secondary_color = "#FFFFFF";
+
+		context.clearRect(0, 0, 280, 280);
+		context2.clearRect(0, 0, 280, 280);
+		$.getJSON("/assets/fables/bases/colors.json", function(json) {
+			primary_color = json[selected_primary];
+			secondary_color = json[selected_secondary];
+			var lines = new Image();
+			var primary = new Image();
+			var secondary = new Image();
+			var element = new Image();		
+			secondary.src = "/assets/fables/bases/" + selected_species + "/patterns/0/secondary.png";
+			secondary.onload = function() {
+			   	context.drawImage(secondary, 0, 0, 280, 280);
+			   	context.fillStyle = secondary_color;
+			   	context.globalCompositeOperation = 'source-atop';
+	        	context.fillRect(0,0,280,280);
+	        	context.globalCompositeOperation = 'source-over';
+			   	primary.src = "/assets/fables/bases/" + selected_species + "/patterns/0/primary.png";
+			   	primary.onload = function() {
+
+			   		context2.drawImage(primary, 0, 0, 280, 280);
+			   		context2.fillStyle = primary_color;
+			   		context2.globalCompositeOperation = 'source-atop';
+			   		context2.fillRect(0,0,280,280);
+			   		context2.globalCompositeOperation = 'source-over';
+	    			context.drawImage(c2, 0, 0, 280, 280);
+
+			   		lines.src = "/assets/fables/bases/" + selected_species + "/" + "/lines.png";
+			   		lines.onload = function() {
+			   			context.drawImage(lines, 0, 0, 280, 280);
+			   			element.src = "/assets/fables/bases/" + selected_species + "/element/" + selected_element + ".png";
+			   			element.onload = function() {
+			   				context.drawImage(element, 0, 0, 280, 280);
+						};
+					};
+				};
+			};
+		});
+	}
+
+	function update_species() {
+		var namecontainer = document.getElementById("petname");
+		var blurbcontainer = document.getElementById("petblurb");
+		$.getJSON("/assets/fables/bases/species.json", function(json) {
+			namecontainer.innerHTML = "<h1>" + json[selected_species] + "</h1>";
+		});
+		$.ajax({
+            url : "/assets/fables/bases/" + selected_species + "/blurb.txt",
+            dataType: "text",
+            success : function (data) {
+                blurbcontainer.innerHTML = data;
+            }
+        });
+		update_image();
+	}
+
+	function update_element() {
+		$.getJSON("/assets/fables/bases/elements.json", function(json) {
+			var elecontainer = document.getElementById("elementname");
+			elecontainer.innerHTML = "<h3>Element: " + json[selected_element] + "</h3>";
+		});
+		update_image();
+
+	}
+
+
 	<% basic_species.each do |i|%>
 	$(document).on('click', '#' + <%=String(i)%>, function() { 
 		<% basic_species.each do |species|%>
-			var specieselement = document.getElementById(<%= String(species)%>);
+			var specieselement = document.getElementById(<%=species%>);
 			specieselement.style.opacity = "0.4"
 			specieselement.style.borderColor="#FFFFFF";
 		<% end %>
-		var selectedelement = document.getElementById( <%= String(@selected_species = i)%>);
+		var selectedelement = document.getElementById(<%=i%>);
+		selected_species = <%=i%>;
 		selectedelement.style.opacity = "1.0"
 		selectedelement.style.borderColor="#3d3d3d";
-		updateDiv("petart");
+		update_species();
 	});
 	<% end %>
-</script>
 
-<script>
 	<% basic_elements.each do |i|%>
 	$(document).on('click', '#e' + <%= String(i)%>, function() { 
 		<% basic_elements.each do |ele|%>
-			document.getElementById('e' + <%= String(ele)%>).style.opacity = "0.4"
+			document.getElementById('e' + <%=ele%>).style.opacity = "0.4"
 		<% end %>
-		document.getElementById('e' + <%= String(@selected_element = i)%>).style.opacity = "1.0"
-		updateDiv("petart");
+		document.getElementById('e' + <%=i%>).style.opacity = "1.0"
+		selected_element  = <%=i%>;
+		update_element();
 	});
 	<% end %>
-</script>
 
-<script>
 	<% basic_colors.each do |i|%>
-	$(document).on('click', '#p' + <%= String(i) %>, function() { 
+	$(document).on('click', '#p' + <%=i%>, function() { 
 		<% basic_colors.each do |color|%>
-			document.getElementById('p' + <%= String(color)%>).style.borderColor="#3d3d3d";
+			document.getElementById('p' + <%=color%>).style.borderColor="#3d3d3d";
 		<% end %>
-		document.getElementById('p' + <%= String(@selected_primary = i)%>).style.borderColor="#FFFFFF";
-		updateDiv("petart");
+		document.getElementById('p' + <%=i%>).style.borderColor="#FFFFFF";
+		selected_primary = <%=i%>;
+		update_image();
 	});
-	<% end %>
-</script>
 
-<script>
-	<% basic_colors.each do |i|%>
 	$(document).on('click', '#s' + <%= String(i) %>, function() {
 		<% basic_colors.each do |color|%>
-			document.getElementById('s' + <%= String(color)%>).style.borderColor="#3d3d3d";
+			document.getElementById('s' + <%=color%>).style.borderColor="#3d3d3d";
 		<% end %>
-		document.getElementById('s' + <%= String(@selected_secondary = i)%>).style.borderColor="#FFFFFF";
-		updateDiv("petart");
+		document.getElementById('s' + <%=i%>).style.borderColor="#FFFFFF";
+		selected_secondary = <%=i%>;
+		update_image();
 	});
 	<% end %>
 </script>

@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def basic_species
-    [0,1]
+    [0,1,2]
   end
 
   def basic_colors
@@ -42,6 +42,8 @@ class ApplicationController < ActionController::Base
         return "Werelapin"
       when 1
         return "Ferrotoad"
+      when 2
+        return "Mantifae"
     end
     return "Missingno."
   end
