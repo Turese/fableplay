@@ -11,32 +11,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190602035250) do
+ActiveRecord::Schema.define(version: 20190719035509) do
+
+  create_table "elements", force: :cascade do |t|
+    t.string  "name"
+    t.boolean "is_basic", default: false, null: false
+  end
+
+  create_table "fablepet_colors", force: :cascade do |t|
+    t.string  "name"
+    t.boolean "is_basic", default: false, null: false
+  end
+
+  create_table "fablepet_patterns", force: :cascade do |t|
+    t.string  "name"
+    t.boolean "has_tertiary", default: false, null: false
+  end
+
+  create_table "fablepet_species", force: :cascade do |t|
+    t.string  "name"
+    t.boolean "is_basic", default: false, null: false
+  end
 
   create_table "fablepets", id: false, force: :cascade do |t|
-    t.string   "unique_name",   null: false
+    t.string   "unique_name",                 null: false
     t.string   "name"
-    t.integer  "species"
-    t.integer  "pattern"
-    t.string   "colors"
-    t.string   "curr_colors"
-    t.string   "elements"
-    t.string   "curr_elements"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "level"
-    t.integer  "hp"
-    t.integer  "curr_hp"
-    t.integer  "attack"
-    t.integer  "defense"
-    t.integer  "magic_attack"
-    t.integer  "magic_defense"
-    t.integer  "mp"
-    t.integer  "curr_mp"
-    t.integer  "charisma"
-    t.integer  "agility"
-    t.integer  "speed"
-    t.string   "username"
+    t.integer  "species",                     null: false
+    t.integer  "pattern",                     null: false
+    t.string   "curr_element",                null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "level",           default: 1, null: false
+    t.integer  "hp",              default: 1, null: false
+    t.integer  "curr_hp",         default: 1, null: false
+    t.integer  "attack",          default: 1, null: false
+    t.integer  "defense",         default: 1, null: false
+    t.integer  "magic_attack",    default: 1, null: false
+    t.integer  "magic_defense",   default: 1, null: false
+    t.integer  "mp",              default: 1, null: false
+    t.integer  "curr_mp",         default: 1, null: false
+    t.integer  "charisma",        default: 1, null: false
+    t.integer  "agility",         default: 1, null: false
+    t.integer  "speed",           default: 1, null: false
+    t.string   "username",                    null: false
+    t.integer  "stat_total",      default: 9, null: false
+    t.integer  "primary_color"
+    t.integer  "secondary_color"
+    t.integer  "tertiary_color"
   end
 
   add_index "fablepets", ["unique_name"], name: "index_fablepets_on_unique_name", unique: true

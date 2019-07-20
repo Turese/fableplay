@@ -1,36 +1,33 @@
 <p id="notice"><%= notice %></p>
 
+<div class = "pet_info">
+  <div class = "pet_name">
+    <center><h1><%= @fablepet.name %>: <%= @fablepet_pattern %> <%= @fablepet_species %></h1> </center>
+    <font size=3>Unique Name: <%= @fablepet.unique_name %><br>
+    Owned by <a href= <%=user_path(@fablepet.username) %>> <%= @fablepet.username %></a> <br></font>
+  </div>
 
-<img src = <%= @img_string %> >
+  <div class = "pet_pic">
+    <img src= <%= @img_string%> width="100%", height="100%">
+  </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @fablepet.name %>
-</p>
-
-<p>
-  <strong>Unique:</strong>
-  <%= @fablepet.unique_name %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @fablepet.username %>
-</p>
-
-<p>
-  <strong>Species:</strong>
-  <%= @fablepet.get_species(@fablepet.species) %>
-</p>
-
-<p>
-  <strong>Pattern:</strong>
-  <%= @fablepet.get_pattern(@fablepet.pattern) %>
-</p>
-
-<p>
-  <strong>Colors:</strong>
-  <%= @fablepet.colors %>
-</p>
+</div>
+<div class="profile_info">
+  <div class = "profile_outer_info"> 
+    <font color = #ffffff size=4>Colors: [numcolorshere/totalcolors]</font>
+    <div class = "profile_inner_info">
+    </div>
+  </div>
+  <div class = "profile_outer_info"> 
+    <font color = #ffffff size=4>Elements: [???/8]</font>
+    <div class = "profile_inner_info">
+    </div>
+  </div>
+  <div class = "profile_outer_info"> 
+    <font color = #ffffff size=4>Stats</font>
+    <div class = "profile_inner_info">
+    </div>
+  </div>
+</div>
 
 <%= link_to 'Back', fablepets_path %>

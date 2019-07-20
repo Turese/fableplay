@@ -1,5 +1,6 @@
 <center><h1>Create a new Fablepet</h1></center>
 
+<%=flash[:error] %>
 
 <div class="petartbox">
 	<center>
@@ -96,20 +97,22 @@
 
 	<div class="field">
 	    <h3>Nickname</h3>
-	    <%= f.text_field :name %>
+	    <%= f.text_field :name, value: flash[:name] %>
 	</div>
 
 	<div class="field">
 		<h3>Name</h3>
-		<%= f.text_field :unique_name %> <input type="button" name="validifybutton" value="Verify Name" onClick="verify_name()"> 
+		<%= f.text_field :unique_name, value: flash[:nickname] %> <input type="button" name="validifybutton" value="Verify Name" onClick="verify_name()"> 
 		<div class="verify_message" id="verify_message"></div>
 	</div>
   
 	<%= hidden_field_tag(:species, @selected_species) %>
+	<%= hidden_field_tag(:pattern, 0) %>
 	<%= hidden_field_tag(:element, @selected_element) %>
-	<div class="actions">
-		<%= f.submit %>
-	</div>
+	<%= hidden_field_tag(:primary_color, @selected_primary) %>
+	<%= hidden_field_tag(:secondary_color, @selected_secondary) %>
+	<%= f.submit 'Create Fablepet', onclick: 'submit_form()' %>
+	
   <% end %>
 </div>
 
@@ -119,6 +122,13 @@
 	var selected_primary = <%= @selected_primary %>;
 	var selected_secondary = <%= @selected_secondary %>;
 
+	function submit_form() {
+		document.getElementById("species").value = selected_species;
+		document.getElementById("element").value = selected_element;
+		document.getElementById("primary_color").value = selected_primary;
+		document.getElementById("secondary_color").value = selected_secondary;
+
+	}
 
 	$(document).ready(function() {
 		update_element();

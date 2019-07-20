@@ -8,8 +8,9 @@
       <th>Name</th>
       <th>ID</th>
       <th>Species</th>
+      <th>Primary</th>
+      <th>Secondary</th>
       <th>Pattern</th>
-      <th>Colors</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -21,7 +22,8 @@
         <td><%= fablepet.unique_name %></td>
         <td><%= fablepet.species %></td>
         <td><%= fablepet.pattern %></td>
-        <td><%= fablepet.colors %></td>
+        <td><%= fablepet.primary_color %></td>
+        <td><%= fablepet.secondary_color %></td>
         <td><%= link_to 'Show', fablepet_path(fablepet.unique_name) %></td>
       </tr>
     <% end %>

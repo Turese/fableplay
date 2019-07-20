@@ -1,5 +1,8 @@
 class FablepetsController < ApplicationController
-  before_action :set_fablepet, only: [:show, :edit, :update, :destroy]
+  before_action :set_fablepet, only: [:show]
+
+  require 'fablepet_info_utilities'
+
 
   # GET /fablepets
   # GET /fablepets.json
@@ -12,21 +15,39 @@ class FablepetsController < ApplicationController
   # GET /fablepets/1.json
   def show
     @img_string = @fablepet.update_image
+    @fablepet_pattern = get_pattern_name(@fablepet.pattern)
+    @fablepet_species = get_species_name(@fablepet.species)
   end
 
   # GET /fablepets/new
   def new
     @fablepet = Fablepet.new
-    @selected_species = basic_species.sample
-    @selected_element = basic_elements.sample
-    @selected_primary = basic_colors.sample
-    @selected_secondary = basic_colors.sample
-    @curr_species = @curr_species
+    if params[:selected_species] 
+      @selected_species = params[:selected_species]
+    else
+      @selected_species = basic_species.sample
+    end
+
+    if params[:selected_element]
+      @selected_element = params[:selected_element]
+    else
+      @selected_element = basic_elements.sample
+    end
+
+    if flash[:selected_primary]
+      @selected_primary = params[:selected_primary]
+    else
+      @selected_primary = basic_colors.sample
+    end
+
+
+    if params[:selected_secondary]
+      @selected_secondary = params[:selected_secondary]
+    else
+      @selected_secondary = basic_colors.sample
+    end
   end
 
-  # GET /fablepets/1/edit
-  def edit
-  end
 
   # POST /fablepets
   # POST /fablepets.json
@@ -34,15 +55,23 @@ class FablepetsController < ApplicationController
     set_curr_user
     @fablepet = Fablepet.new(fablepet_params)
     @fablepet.username = @curr_user.username
-    respond_to do |format|
+    @fablepet.species = params[:species]
+    @fablepet.pattern = 0;
+    @fablepet.curr_element = params[:element]
+    @fablepet.primary_color = params[:primary_color]
+    @fablepet.secondary_color = params[:secondary_color]
+    @fablepet.update_image
+
+    
       if @fablepet.save
-        format.html { redirect_to @fablepet, notice: 'Fablepet was successfully created.' }
-        format.json { render :show, status: :created, location: @fablepet }
+        redirect_to @fablepet, notice: 'Fablepet was successfully created.' 
       else
-        format.html { render :new }
-        format.json { render json: @fablepet.errors, status: :unprocessable_entity }
+        flash[:error] = @fablepet.errors
+        flash[:name] = fablepet_params[:name]
+        flash[:nickname] = fablepet_params[:unique_name]
+        redirect_to :back
       end
-    end
+    
   end
 
   # PATCH/PUT /fablepets/1
@@ -81,6 +110,6 @@ class FablepetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def fablepet_params
-      params.require(:fablepet).permit(:name, :unique_name, :species, :pattern, :colors)
+      params.require(:fablepet).permit(:name, :unique_name, :species, :pattern)
     end
 end

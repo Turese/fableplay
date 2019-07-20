@@ -7,22 +7,15 @@ class Fablepet < ActiveRecord::Base
 	validates :unique_name, presence: true, uniqueness: true	
 	validates :species, presence: true
 	validates :pattern, presence: true
-	validates :colors, presence: true
 
 
-require 'rubygems'
-require 'mini_magick'
-
-	def image_size
-		"500x500"
-	end
-
+	require 'rubygems'
+	require 'mini_magick'
+	require 'fablepet_info_utilities'
 
 	def basedir
 		'public/assets/fables/bases/' + String(self.species)
 	end
-
-	
 
 	def get_color (color_id)
 		img = MiniMagick::Image.open('public/assets/fables/colors/' + String(color_id) + '.png')
@@ -30,48 +23,34 @@ require 'mini_magick'
 		return img
 	end
 
-	def get_species (species_id)
-		case species_id
-			when 0
-				"Werelapin"
-			when 1
-				"Ferrotoad"
+	public def create_custom_pet(primary_color, secondary_color, tertiary_color, pattern, species, element)
+		basedir = 'public/assets/fables/bases/' + String(species)
+		element = MiniMagick::Image.open(basedir + '/element/' + String(element) + '.png')
+
+		lines = MiniMagick::Image.open(basedir + '/lines.png')
+		primary = MiniMagick::Image.open(basedir + '/patterns/' + String(pattern) + '/primary.png')
+		primary = primary.composite(get_color(primary_color), 'png') do |c|
+		  c.compose 'Atop'
 		end
-	end
 
-
-	def get_pattern (pattern_id)
-		case pattern_id
-			when 0
-				"Basic"
+		secondary = MiniMagick::Image.open(basedir + '/patterns/' + String(pattern) + '/secondary.png')
+		secondary = secondary.composite(get_color(secondary_color), 'png') do |c|
+		  c.compose 'Atop'
 		end
+		  #tertiary = MiniMagick::Image.open(basedir + '/patterns/' + String(self.pattern) + '/tertiary.png')
+		  
+		  #img = tertiary.composite(secondary)
+		img = secondary
+		img = img.composite(primary)
+		img = img.composite(lines)
+		img = img.composite(element)
+		return img
 	end
-
-
+	
 	public def update_image 
-
-		element = MiniMagick::Image.open(basedir + '/element/2.png')
-
-	    lines = MiniMagick::Image.open(basedir + '/lines.png')
-	    primary = MiniMagick::Image.open(basedir + '/patterns/' + String(self.pattern) + '/primary.png')
-    	primary = primary.composite(get_color(self.colors[0]), 'png') do |c|
-		  c.compose 'Atop'
-		end
-
-	    secondary = MiniMagick::Image.open(basedir + '/patterns/' + String(self.pattern) + '/secondary.png')
-	    secondary = secondary.composite(get_color(self.colors[1]), 'png') do |c|
-		  c.compose 'Atop'
-		end
-	    #tertiary = MiniMagick::Image.open(basedir + '/patterns/' + String(self.pattern) + '/tertiary.png')
-	    
-	    #img = tertiary.composite(secondary)
-	    img = secondary
-	    img = img.composite(primary)
-	    img = img.composite(lines)
-	    img = img.composite(element)
+		img = create_custom_pet(self.primary_color, self.secondary_color, self.tertiary_color, self.pattern, self.species, self.curr_element)
 
 	    img_string = '/assets/fables/pets/' + self.unique_name + '.png'
-	    img.resize image_size
 	    img.write('public' + img_string)
 	    return img_string
 	end

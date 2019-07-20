@@ -24,18 +24,18 @@
 <body>
 
 <div class="sidebar">
-  <div class="userprofilesidebar">
-    <% if current_user %>
-      <div class="userprofileboxsidebar">
-        <div class="useravatarsidebar">
-          <img src= "http://images.neopets.com/neoboards/avatars/kauvara.gif">
-        </div>
-          <div class="userinfosidebar">
-            <%= link_to current_user.username, user_path(current_user.username) %></a> <br>
-            <font size=1><a href="#MONEY"> xx,xxx,xxx,xxx,xxx,xxx FP</a></font> <br>
-            <font size=1><a href="#MONEY"> xx,xxx,xxx,xxx,xxx,xxx MP</a></font> <br>
-            <font size=1><a href="#MONEY"> ??? AP</a></font>
+  <% if current_user %>
+    <div class="userprofilesidebar">
+        <div class="userprofileboxsidebar">
+          <div class="useravatarsidebar">
+            <img src= "http://images.neopets.com/neoboards/avatars/kauvara.gif">
           </div>
+            <div class="userinfosidebar">
+              <%= link_to current_user.username, user_path(current_user.username) %></a> <br>
+              <font size=1><a href="#MONEY"> xx,xxx,xxx,xxx,xxx,xxx FC</a></font> <br>
+              <font size=1><a href="#MONEY"> xx,xxx,xxx,xxx,xxx,xxx GC</a></font> <br>
+              <font size=1><a href="#MONEY"> ??? R</a></font>
+            </div>
 
         <center>Settings | <%= link_to 'Log Out', logout_path %></center>
       </div>

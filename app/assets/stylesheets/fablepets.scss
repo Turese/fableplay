@@ -1,3 +1,4 @@
+//for new
 
 .petartbox {
   height: 100%;
@@ -41,7 +42,49 @@ h3 {
   }
 }
 
+//for show
 
+.pet_info {
+  float: left;
+  width: 45%;
+}
+
+.profile_info {
+  margin-left: 10px;
+  width: 50%;
+  float: left;
+}
+
+.pet_name {
+}
+
+.pet_pic {
+  background:#d7aa8f;
+  padding:15px;
+  border:10px solid #7d4d30;
+  margin-top:10px;
+  -webkit-border-radius: 20px!important;
+  border-radius: 20px!important
+}
+
+.profile_outer_info {
+  background:#7d4d30;
+  padding:10px;
+  -webkit-border-radius: 20px!important;
+  margin-top: 10px;
+}
+.profile_inner_info{
+  background:#d7aa8f;
+  padding:10px;
+  border:10px solid #d7aa8f;
+  margin-top:10px;
+  -webkit-border-radius: 20px!important;
+  border-radius: 20px!important
+}
+
+.info_outline {
+
+}
 
 
 
