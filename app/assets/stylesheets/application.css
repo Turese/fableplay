@@ -14,6 +14,12 @@
  *= require_self
  */
 
+* {
+  box-sizing: border-box;
+}
+
+/* todo: Responsive layout */
+
 
 body {
   font-family: "Lato", sans-serif;
@@ -22,40 +28,58 @@ body {
 html, body { height: 100%; width: 100%; margin: 0; }
 
 
-.sidenav {
 
+
+/* Style the header */
+.header {
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  padding: 5px;
+  border-bottom:10px solid #7d4d30;
 }
 
 .sidebar {
+  width: 20%;
+  background-color:#d7aa8f;
   height: 100%;
   min-height: wrap-content;
-  width: 250px;
-  float: right;
-  z-index: 1;
-  background-color: #93d4f9;
+  min-width: wrap-content;
   overflow-x: hidden;
+  float: left;
+  z-index: 1;
+  border:10px solid #7d4d30;
+  -webkit-border-bottom-left-radius: 20px!important;
+  -webkit-border-bottom-right-radius: 20px!important;
+  border-bottom-left-radius: 20px!important
+  border-bottom-right-radius: 20px!important
 }
 
 .userprofilesidebar {
   padding: 5px 5px 5px 5px;
 }
 .userprofileboxsidebar {
-  padding: 5px 5px 5px 5px;
+  padding: 10px;
   background-color: #FFFFFF;
   height: wrap-content;
+  -webkit-border-radius: 10px!important;
+  border-radius: 10px!important
+  border:10px solid #7d4d30;
+  margin:5px;
 }
 .useravatarsidebar {
   width: 50px;
   float:left;
 }
 .userinfosidebar {
-
   padding-left: 55px;
 }
 .petsidebar {
   padding: 5px 5px 5px 10px;
 }
+.sidenav {
 
+}
 .sidenav a {
   padding: 5px 5px 5px 10px;
   text-decoration: none;
@@ -69,6 +93,6 @@ html, body { height: 100%; width: 100%; margin: 0; }
 }
 
 .mainbody {
-  margin-right: 250px; /* Same as the width of the sidenav */
-  padding: 0px 10px;
+  padding-left: 21%;
+  width: 100%;
 }

@@ -22,13 +22,14 @@
 
 </head>
 <body>
+<div class="header">FABLEPLAY</div>
 
 <div class="sidebar">
   <% if current_user %>
     <div class="userprofilesidebar">
         <div class="userprofileboxsidebar">
           <div class="useravatarsidebar">
-            <img src= "http://images.neopets.com/neoboards/avatars/kauvara.gif">
+            <img src="/assets/avatars/images/0.gif">
           </div>
             <div class="userinfosidebar">
               <%= link_to current_user.username, user_path(current_user.username) %></a> <br>
@@ -37,12 +38,16 @@
               <font size=1><a href="#MONEY"> ??? R</a></font>
             </div>
 
-        <center>Settings | <%= link_to 'Log Out', logout_path %></center>
+        <center><%= link_to 'Settings', users_path %> | <%= link_to 'Log Out', logout_path %></center>
       </div>
     </div>
-    <div class="petsidebar">
-      <img src="https://fableplay.herokuapp.com/images/fables/pets/Shale.png" width="200">
-    </div>
+    <% if current_user.active_pet %>
+      <div class="petsidebar">
+        <center>
+          <img src=<%="/assets/fables/pets/" + current_user.active_pet + ".png" %> width="100%">
+        </center>
+      </div>
+    <% end %>
   <% end %>
   <div class="sidenav">
     <% if current_user %>

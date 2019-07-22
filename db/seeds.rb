@@ -62,7 +62,7 @@ User.create({
 	password: "temp",
 	password_confirmation: "temp",
 	username: "turese",
-
+	active_pet: "Harper"
 })
 
 Fablepet.create({

@@ -6,12 +6,16 @@
     <font size=3>Unique Name: <%= @fablepet.unique_name %><br>
     Owned by <a href= <%=user_path(@fablepet.username) %>> <%= @fablepet.username %></a> <br></font>
   </div>
-
   <div class = "pet_pic">
     <img src= <%= @img_string%> width="100%", height="100%">
   </div>
-
+  <div class = "profile_outer_info"> 
+     <font color = #ffffff size=4>Personality</font>
+    <div class = "profile_inner_info">
+    </div>
+  </div>
 </div>
+
 <div class="profile_info">
   <div class = "profile_outer_info"> 
     <font color = #ffffff size=4>Colors: <%= @fablepet.all_colors.count%> / <%= @num_colors %></font>
