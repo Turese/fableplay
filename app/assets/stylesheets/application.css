@@ -51,8 +51,8 @@ html, body { height: 100%; width: 100%; margin: 0; }
   border:10px solid #7d4d30;
   -webkit-border-bottom-left-radius: 20px!important;
   -webkit-border-bottom-right-radius: 20px!important;
-  border-bottom-left-radius: 20px!important
-  border-bottom-right-radius: 20px!important
+  border-bottom-left-radius: 20px!important;
+  border-bottom-right-radius: 20px!important;
 }
 
 .userprofilesidebar {
@@ -63,8 +63,7 @@ html, body { height: 100%; width: 100%; margin: 0; }
   background-color: #FFFFFF;
   height: wrap-content;
   -webkit-border-radius: 10px!important;
-  border-radius: 10px!important
-  border:10px solid #7d4d30;
+  border-radius: 10px!important;
   margin:5px;
 }
 .useravatarsidebar {
