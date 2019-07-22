@@ -14,6 +14,8 @@ class FablepetsController < ApplicationController
   # GET /fablepets/1
   # GET /fablepets/1.json
   def show
+    @num_colors = num_colors
+    @num_elements = num_elements
     @img_string = @fablepet.update_image
     @fablepet_pattern = get_pattern_name(@fablepet.pattern)
     @fablepet_species = get_species_name(@fablepet.species)
@@ -22,6 +24,9 @@ class FablepetsController < ApplicationController
   # GET /fablepets/new
   def new
     @fablepet = Fablepet.new
+    @basic_colors = basic_colors
+    @basic_species = basic_species
+    @basic_elements = basic_elements
     if params[:selected_species] 
       @selected_species = params[:selected_species]
     else
@@ -62,6 +67,9 @@ class FablepetsController < ApplicationController
     @fablepet.secondary_color = params[:secondary_color]
     @fablepet.update_image
 
+    @fablepet.all_elements = [params[:element]]
+    @fablepet.all_colors = [params[:primary_color], params[:secondary_color]]
+
     
       if @fablepet.save
         redirect_to @fablepet, notice: 'Fablepet was successfully created.' 
@@ -100,6 +108,7 @@ class FablepetsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
     def set_fablepet
       @fablepet = Fablepet.find(params[:unique_name])
     end

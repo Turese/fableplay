@@ -14,20 +14,159 @@
 </div>
 <div class="profile_info">
   <div class = "profile_outer_info"> 
-    <font color = #ffffff size=4>Colors: [numcolorshere/totalcolors]</font>
+    <font color = #ffffff size=4>Colors: <%= @fablepet.all_colors.count%> / <%= @num_colors %></font>
     <div class = "profile_inner_info">
+      <center>
+        <img src = <%= "/assets/fables/colors/" + @fablepet.primary_color.to_s + ".png" %> width="50px" >
+        <img src = <%= "/assets/fables/colors/" + @fablepet.secondary_color.to_s + ".png" %> width="50px" >
+        <%if @fablepet.tertiary_color %>
+          <img src = <%= "/assets/fables/colors/" + @fablepet.tertiary_color.to_s + ".png" %> width="50px" >
+        <% end %>
+        <% @fablepet.all_colors.each do |i|%>
+          <%if i.to_s != @fablepet.primary_color.to_s and i.to_s != @fablepet.secondary_color.to_s and i.to_s != @fablepet.tertiary_color.to_s%>
+            <img src = <%= "/assets/fables/colors/" + String(i) + ".png"%> width="50px" >
+          <% end %>
+        <% end %>
+      </center>
     </div>
   </div>
   <div class = "profile_outer_info"> 
-    <font color = #ffffff size=4>Elements: [???/8]</font>
+    <font color = #ffffff size=4>Elements: <%= @fablepet.all_elements.count%> / <%= @num_elements %></font>
     <div class = "profile_inner_info">
+      <center>
+        <img src = <%= "/assets/elements/" + @fablepet.curr_element.to_s + ".png" %> width="50px" >
+        <% @fablepet.all_elements.each do |i|%>
+          <%if i.to_s != @fablepet.curr_element.to_s %>
+            <img src = <%= "/assets/elements/" + String(i) + ".png"%> width="50px" >
+          <% end %>
+        <% end %>
+      </center>
     </div>
   </div>
   <div class = "profile_outer_info"> 
-    <font color = #ffffff size=4>Stats</font>
+    <font color = #ffffff size=4>Stats: <%= @fablepet.stat_total%> Points, Level <%= @fablepet.level%></font>
     <div class = "profile_inner_info">
+      <center>
+        HP: <%= @fablepet.curr_hp%> / <%= @fablepet.hp%><br>
+        <canvas id="hp_bar" width="250" height="50"></canvas><br>
+        ATTACK: <%= @fablepet.attack.to_i%><br>
+        <canvas id="atk_bar" width="250" height="50"></canvas><br>
+        DEFENSE: <%= @fablepet.defense%><br>
+        <canvas id="def_bar" width="250" height="50"></canvas><br>
+        MAGIC ATK: <%= @fablepet.magic_attack%><br>
+        <canvas id="matk_bar" width="250" height="50"></canvas><br>
+        MAGIC DEF: <%= @fablepet.magic_defense%><br>
+        <canvas id="mdef_bar" width="250" height="50"></canvas><br>
+        MP: <%= @fablepet.curr_mp%> / <%= @fablepet.mp%><br>
+        <canvas id="mp_bar" width="250" height="50"></canvas><br>
+        AGILITY: <%= @fablepet.agility%><br>
+        <canvas id="agi_bar" width="250" height="50"></canvas><br>
+        SPEED: <%= @fablepet.speed%><br>
+        <canvas id="spd_bar" width="250" height="50"></canvas><br>
+        CHARISMA: <%= @fablepet.charisma%><br>
+        <canvas id="char_bar" width="250" height="50"></canvas><br>
+      </center>
     </div>
   </div>
 </div>
 
-<%= link_to 'Back', fablepets_path %>
+<div class="go_back"><%= link_to 'Back', fablepets_path %></div>
+
+<script>
+  window.onload = function() {   
+    $.getJSON("/assets/fables/progressbars/colors.json", function(json) {  
+      var hp_bar = document.getElementById("hp_bar");
+      var ratio = <%= @fablepet.curr_hp.to_f /  @fablepet.hp.to_f%>;
+      if (ratio > 1) {
+        ratio = 1;
+      }
+      console.log(ratio);
+      draw_bar(hp_bar, "#539713", "#7d4d30", ratio);
+      //attack
+      var atk_bar = document.getElementById("atk_bar");
+      var val = <%= @fablepet.attack%>;
+      var fg = get_color_out_of(json.length, val);
+      var bg = get_previous_out_of(json.length, fg);
+      draw_bar(atk_bar, json[fg], json[bg], get_ratio(6, val));
+      
+      //defense
+      var def_bar = document.getElementById("def_bar");
+      val = <%= @fablepet.defense%>;
+      fg = get_color_out_of(json.length, val);
+      bg = get_previous_out_of(json.length, fg);
+      draw_bar(def_bar, json[fg], json[bg], get_ratio(6, val));
+      
+      //magic attack
+      var matk_bar = document.getElementById("matk_bar");
+      val = <%= @fablepet.magic_attack%>;
+      fg = get_color_out_of(json.length, val);
+      bg = get_previous_out_of(json.length, fg);
+      draw_bar(matk_bar, json[fg], json[bg], get_ratio(6, val));
+
+      //magic defense
+      var mdef_bar = document.getElementById("mdef_bar");
+      val = <%= @fablepet.magic_defense%>;
+      fg = get_color_out_of(json.length, val);
+      bg = get_previous_out_of(json.length, fg);
+      draw_bar(mdef_bar, json[fg], json[bg], get_ratio(6, val));
+
+      //mp
+      var mp_bar = document.getElementById("mp_bar");
+      ratio = <%= @fablepet.curr_mp.to_f /  @fablepet.mp.to_f%>;
+      if (ratio > 1) {
+        ratio = 1;
+      }
+      draw_bar(mp_bar, "#ce57a5", "#7d4d30", ratio);
+
+      //agility
+      var agi_bar = document.getElementById("agi_bar");
+      val = <%= @fablepet.agility%>;
+      fg = get_color_out_of(json.length, val);
+      bg = get_previous_out_of(json.length, fg);
+      draw_bar(agi_bar, json[fg], json[bg], get_ratio(6, val));
+
+      //speed
+      val = <%= @fablepet.speed%>;
+      fg = get_color_out_of(json.length, val);
+      bg = get_previous_out_of(json.length, fg);
+      var spd_bar = document.getElementById("spd_bar");
+      draw_bar(spd_bar, json[fg], json[bg], get_ratio(6, val));
+
+      //charisma
+      val = <%= @fablepet.charisma%>;
+      fg = get_color_out_of(json.length, val);
+      bg = get_previous_out_of(json.length, fg);
+      var char_bar = document.getElementById("char_bar");
+      draw_bar(char_bar, json[fg], json[bg], get_ratio(6, val));
+    });
+  }
+
+  function get_color_out_of(total, value) {
+    return Math.ceil(value/6) % total;
+  }
+
+  function get_previous_out_of(total, value) {
+    if (value == 0) {
+      return total - 1;
+    }
+    return value - 1;
+  }
+
+  function get_ratio(total, value) {
+    return (value % total) / total;
+  }
+
+
+  function draw_bar(bar, fg_color, bg_color, ratio) {
+    var context = bar.getContext("2d");
+    var container = new Image();
+    container.src = "/assets/fables/progressbars/bar.png";
+    container.onload = function() {
+      context.fillStyle = bg_color;
+      context.fillRect(5,5,240,40);
+      context.fillStyle = fg_color;
+      context.fillRect(5,5,240*ratio,40);
+      context.drawImage(container, 0, 0, 250, 50);
+    };
+  }
+</script>

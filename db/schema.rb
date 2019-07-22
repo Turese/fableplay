@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190719035509) do
+ActiveRecord::Schema.define(version: 20190720040759) do
 
   create_table "elements", force: :cascade do |t|
     t.string  "name"
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 20190719035509) do
     t.integer  "primary_color"
     t.integer  "secondary_color"
     t.integer  "tertiary_color"
+    t.text     "all_elements"
+    t.text     "all_colors"
   end
 
   add_index "fablepets", ["unique_name"], name: "index_fablepets_on_unique_name", unique: true

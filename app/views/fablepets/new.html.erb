@@ -2,6 +2,7 @@
 
 <%=flash[:error] %>
 
+
 <div class="petartbox">
 	<center>
 		<div class="petname" id="petname"></div>
@@ -16,7 +17,7 @@
 <div class="selectorbox">
 <%= form_for(@fablepet) do |f| %>
 	<div class="lineartselector">
-		<% basic_species.each do |i|%>
+		<% @basic_species.each do |i|%>
 			<%if i == @selected_species %>
 				<img src = <%= "/assets/fables/bases/" + String(i) + "/full.png" %> 
 					width="100" 
@@ -37,7 +38,7 @@
 
 	<div class="colorselector">
 		<h3>Primary Color</h3>
-		<% basic_colors.each do |i|%>
+		<% @basic_colors.each do |i|%>
 			<%if i == @selected_primary %>
 				<img src = <%= "/assets/fables/colors/" + String(i) + ".png"%> 
 					width="30" 
@@ -57,7 +58,7 @@
 	</div>
 	<div class="colorselector">
 		<h3>Secondary Color</h3>
-		<% basic_colors.each do |i|%>
+		<% @basic_colors.each do |i|%>
 			<%if i == @selected_secondary %>
 				<img src = <%= "/assets/fables/colors/" + String(i) + ".png"%> 
 					width="30" 
@@ -78,7 +79,7 @@
 
 	<div class="elementselector">
 		<div id="elementname"></div>
-		<% basic_elements.each do |i|%>
+		<% @basic_elements.each do |i|%>
 			<%if i == @selected_element %>
 				<img src = <%= "/assets/elements/" + String(i) + ".png"%> 
 					width="30" 
@@ -127,7 +128,6 @@
 		document.getElementById("element").value = selected_element;
 		document.getElementById("primary_color").value = selected_primary;
 		document.getElementById("secondary_color").value = selected_secondary;
-
 	}
 
 	$(document).ready(function() {

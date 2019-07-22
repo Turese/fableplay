@@ -28,7 +28,9 @@ def basic_elements
   Element.where(:is_basic => true).ids
 end
 
-
+def all_elements
+  
+end
 
 def get_species_name (species_id)
   FablepetSpecies.find(species_id).read_attribute(:name)

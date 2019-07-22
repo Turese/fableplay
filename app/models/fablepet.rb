@@ -8,6 +8,9 @@ class Fablepet < ActiveRecord::Base
 	validates :species, presence: true
 	validates :pattern, presence: true
 
+	serialize :all_colors, Array
+	serialize :all_elements, Array
+
 
 	require 'rubygems'
 	require 'mini_magick'
