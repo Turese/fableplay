@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :users, except: [:destroy, :edit, :update], param: :username
-  resources :fablepets, except: [:destroy, :edit, :update], param: :unique_name
+  resources :users, except: [:destroy, :update], param: :username
+  resources :fablepets, except: [:destroy, :update], param: :unique_name
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'signup', to: 'users#new', as: 'signup'
+  get 'preferences', to: 'users#preferences', as: 'preferences'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
 
