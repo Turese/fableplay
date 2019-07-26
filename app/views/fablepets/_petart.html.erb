@@ -1,7 +1,0 @@
-<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-
-<center>
-	<h1><%= get_species(@selected_species)%></h1> 
-		<img src = <%= create_custom_pet(@selected_primary, @selected_secondary, 0, 0, @selected_species, @selected_element, "username") %> width="280" border="5">
-	<%= File.read("public/assets/fables/bases/" + String(@selected_species) + "/blurb.txt") %>
-</center>
