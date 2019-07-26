@@ -33,9 +33,9 @@
           </div>
             <div class="userinfosidebar">
               <%= link_to current_user.username, user_path(current_user.username) %></a> <br>
-              <font size=1><a href="#MONEY"> xx,xxx,xxx,xxx,xxx,xxx FC</a></font> <br>
-              <font size=1><a href="#MONEY"> xx,xxx,xxx,xxx,xxx,xxx GC</a></font> <br>
-              <font size=1><a href="#MONEY"> ??? R</a></font>
+              <font size=1><a href="#MONEY"> <%= current_user.fable_coins%> FC</a></font> <br>
+              <font size=1><a href="#MONEY"> <%= current_user.gold_coins%> GC</a></font> <br>
+              <font size=1><a href="#MONEY"> <%= current_user.opals%> Opal</a></font>
             </div>
 
         <center><%= link_to 'Settings', users_path %> | <%= link_to 'Log Out', logout_path %></center>
