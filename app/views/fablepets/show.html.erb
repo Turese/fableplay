@@ -48,7 +48,7 @@
     </div>
   </div>
   <div class = "profile_outer_info"> 
-    <font color = #ffffff size=4>Stats: <%= @fablepet.stat_total%> Points, Level <%= @fablepet.level%></font>
+    <font color = #ffffff size=4>Stats: <%= @fablepet.stat_total%> Points, Level <%= @fablepet.level%> </font>
     <div class = "profile_inner_info">
       <center>
         HP: <%= @fablepet.curr_hp%> / <%= @fablepet.hp%><br>
@@ -78,71 +78,72 @@
 
 <script>
   window.onload = function() {   
-    $.getJSON("/assets/fables/progressbars/colors.json", function(json) {  
-      var hp_bar = document.getElementById("hp_bar");
-      var ratio = <%= @fablepet.curr_hp.to_f /  @fablepet.hp.to_f%>;
-      if (ratio > 1) {
-        ratio = 1;
-      }
-      console.log(ratio);
-      draw_bar(hp_bar, "#539713", "#7d4d30", ratio);
-      //attack
-      var atk_bar = document.getElementById("atk_bar");
-      var val = <%= @fablepet.attack%>;
-      var fg = get_color_out_of(json.length, val);
-      var bg = get_previous_out_of(json.length, fg);
-      draw_bar(atk_bar, json[fg], json[bg], get_ratio(6, val));
-      
-      //defense
-      var def_bar = document.getElementById("def_bar");
-      val = <%= @fablepet.defense%>;
-      fg = get_color_out_of(json.length, val);
-      bg = get_previous_out_of(json.length, fg);
-      draw_bar(def_bar, json[fg], json[bg], get_ratio(6, val));
-      
-      //magic attack
-      var matk_bar = document.getElementById("matk_bar");
-      val = <%= @fablepet.magic_attack%>;
-      fg = get_color_out_of(json.length, val);
-      bg = get_previous_out_of(json.length, fg);
-      draw_bar(matk_bar, json[fg], json[bg], get_ratio(6, val));
+    var colorlist = ["#0d76c0", "#0da1c0", "#13bdb7", "#278b69", 
+                "#1a7738", "#228c0d", "#56a709", "#d2e500", "#e59c00", 
+                "#e54600", "#c60f20", "#781636", "#540f51"]; 
+    var hp_bar = document.getElementById("hp_bar");
+    var ratio = <%= @fablepet.curr_hp.to_f /  @fablepet.hp.to_f%>;
+    if (ratio > 1) {
+      ratio = 1;
+    }
+    console.log(ratio);
+    draw_bar(hp_bar, "#539713", "#7d4d30", ratio);
+    //attack
+    var atk_bar = document.getElementById("atk_bar");
+    var val = <%= @fablepet.attack%>;
+    var fg = get_color_out_of(colorlist.length, val);
+    var bg = get_previous_out_of(colorlist.length, fg);
+    draw_bar(atk_bar, colorlist[fg], colorlist[bg], get_ratio(6, val));
+    
+    //defense
+    var def_bar = document.getElementById("def_bar");
+    val = <%= @fablepet.defense%>;
+    fg = get_color_out_of(colorlist.length, val);
+    bg = get_previous_out_of(colorlist.length, fg);
+    draw_bar(def_bar, colorlist[fg], colorlist[bg], get_ratio(6, val));
+    
+    //magic attack
+    var matk_bar = document.getElementById("matk_bar");
+    val = <%= @fablepet.magic_attack%>;
+    fg = get_color_out_of(colorlist.length, val);
+    bg = get_previous_out_of(colorlist.length, fg);
+    draw_bar(matk_bar, colorlist[fg], colorlist[bg], get_ratio(6, val));
 
-      //magic defense
-      var mdef_bar = document.getElementById("mdef_bar");
-      val = <%= @fablepet.magic_defense%>;
-      fg = get_color_out_of(json.length, val);
-      bg = get_previous_out_of(json.length, fg);
-      draw_bar(mdef_bar, json[fg], json[bg], get_ratio(6, val));
+    //magic defense
+    var mdef_bar = document.getElementById("mdef_bar");
+    val = <%= @fablepet.magic_defense%>;
+    fg = get_color_out_of(colorlist.length, val);
+    bg = get_previous_out_of(colorlist.length, fg);
+    draw_bar(mdef_bar, colorlist[fg], colorlist[bg], get_ratio(6, val));
 
-      //mp
-      var mp_bar = document.getElementById("mp_bar");
-      ratio = <%= @fablepet.curr_mp.to_f /  @fablepet.mp.to_f%>;
-      if (ratio > 1) {
-        ratio = 1;
-      }
-      draw_bar(mp_bar, "#ce57a5", "#7d4d30", ratio);
+    //mp
+    var mp_bar = document.getElementById("mp_bar");
+    ratio = <%= @fablepet.curr_mp.to_f /  @fablepet.mp.to_f%>;
+    if (ratio > 1) {
+      ratio = 1;
+    }
+    draw_bar(mp_bar, "#ce57a5", "#7d4d30", ratio);
 
-      //agility
-      var agi_bar = document.getElementById("agi_bar");
-      val = <%= @fablepet.agility%>;
-      fg = get_color_out_of(json.length, val);
-      bg = get_previous_out_of(json.length, fg);
-      draw_bar(agi_bar, json[fg], json[bg], get_ratio(6, val));
+    //agility
+    var agi_bar = document.getElementById("agi_bar");
+    val = <%= @fablepet.agility%>;
+    fg = get_color_out_of(colorlist.length, val);
+    bg = get_previous_out_of(colorlist.length, fg);
+    draw_bar(agi_bar, colorlist[fg], colorlist[bg], get_ratio(6, val));
 
-      //speed
-      val = <%= @fablepet.speed%>;
-      fg = get_color_out_of(json.length, val);
-      bg = get_previous_out_of(json.length, fg);
-      var spd_bar = document.getElementById("spd_bar");
-      draw_bar(spd_bar, json[fg], json[bg], get_ratio(6, val));
+    //speed
+    val = <%= @fablepet.speed%>;
+    fg = get_color_out_of(colorlist.length, val);
+    bg = get_previous_out_of(colorlist.length, fg);
+    var spd_bar = document.getElementById("spd_bar");
+    draw_bar(spd_bar, colorlist[fg], colorlist[bg], get_ratio(6, val));
 
-      //charisma
-      val = <%= @fablepet.charisma%>;
-      fg = get_color_out_of(json.length, val);
-      bg = get_previous_out_of(json.length, fg);
-      var char_bar = document.getElementById("char_bar");
-      draw_bar(char_bar, json[fg], json[bg], get_ratio(6, val));
-    });
+    //charisma
+    val = <%= @fablepet.charisma%>;
+    fg = get_color_out_of(colorlist.length, val);
+    bg = get_previous_out_of(colorlist.length, fg);
+    var char_bar = document.getElementById("char_bar");
+    draw_bar(char_bar, colorlist[fg], colorlist[bg], get_ratio(6, val));
   }
 
   function get_color_out_of(total, value) {
