@@ -1,0 +1,30 @@
+<%= form_for(@fablepet) do |f| %>
+  <% if @fablepet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fablepet.errors.count, "error") %> prohibited this Fablepet from being saved:</h2>
+
+      <ul>
+      <% @fablepet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :primary_color %><br>
+    <%= f.select :primary_color, @color_selection_list %>
+  </div>
+  <div class="field">
+    <%= f.label :secondary_color %><br>
+    <%= f.select :secondary_color, @color_selection_list %>
+  </div>
+  <div class="field">
+    <%= f.label :tertiary_color %><br>
+    <%= f.select :tertiary_color, @color_selection_list%>
+  </div>
+  <%= hidden_field_tag(:return_to, "colors") %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

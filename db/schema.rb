@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190725051322) do
+ActiveRecord::Schema.define(version: 20190729004130) do
 
   create_table "elements", force: :cascade do |t|
     t.string  "name"
@@ -34,32 +34,33 @@ ActiveRecord::Schema.define(version: 20190725051322) do
   end
 
   create_table "fablepets", id: false, force: :cascade do |t|
-    t.string   "unique_name",                 null: false
+    t.string   "unique_name",                  null: false
     t.string   "name"
-    t.integer  "species",                     null: false
-    t.integer  "pattern",                     null: false
-    t.string   "curr_element",                null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "level",           default: 1, null: false
-    t.integer  "hp",              default: 1, null: false
-    t.integer  "curr_hp",         default: 1, null: false
-    t.integer  "attack",          default: 1, null: false
-    t.integer  "defense",         default: 1, null: false
-    t.integer  "magic_attack",    default: 1, null: false
-    t.integer  "magic_defense",   default: 1, null: false
-    t.integer  "mp",              default: 1, null: false
-    t.integer  "curr_mp",         default: 1, null: false
-    t.integer  "charisma",        default: 1, null: false
-    t.integer  "agility",         default: 1, null: false
-    t.integer  "speed",           default: 1, null: false
-    t.string   "username",                    null: false
-    t.integer  "stat_total",      default: 9, null: false
+    t.integer  "species",                      null: false
+    t.integer  "pattern",                      null: false
+    t.string   "curr_element",                 null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "level",           default: 1,  null: false
+    t.integer  "hp",              default: 1,  null: false
+    t.integer  "curr_hp",         default: 1,  null: false
+    t.integer  "attack",          default: 1,  null: false
+    t.integer  "defense",         default: 1,  null: false
+    t.integer  "magic_attack",    default: 1,  null: false
+    t.integer  "magic_defense",   default: 1,  null: false
+    t.integer  "mp",              default: 1,  null: false
+    t.integer  "curr_mp",         default: 1,  null: false
+    t.integer  "charisma",        default: 1,  null: false
+    t.integer  "agility",         default: 1,  null: false
+    t.integer  "speed",           default: 1,  null: false
+    t.string   "username",                     null: false
+    t.integer  "stat_total",      default: 9,  null: false
     t.integer  "primary_color"
     t.integer  "secondary_color"
     t.integer  "tertiary_color"
     t.text     "all_elements"
     t.text     "all_colors"
+    t.string   "anti_cache",      default: "", null: false
   end
 
   add_index "fablepets", ["unique_name"], name: "index_fablepets_on_unique_name", unique: true

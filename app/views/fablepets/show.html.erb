@@ -19,11 +19,16 @@
 <div class="profile_info">
   <div class = "profile_outer_info"> 
     <font color = #ffffff size=4>Colors: <%= @fablepet.all_colors.count%> / <%= @num_colors %></font>
+    <% if @is_owned %> 
+      <%= link_to "Edit", fablepet_colors_path(@fablepet.unique_name)%> 
+    <% end %>
     <div class = "profile_inner_info">
       <center>
         <img src = <%= "/assets/fables/colors/" + @fablepet.primary_color.to_s + ".png" %> width="50px" >
-        <img src = <%= "/assets/fables/colors/" + @fablepet.secondary_color.to_s + ".png" %> width="50px" >
-        <%if @fablepet.tertiary_color %>
+        <%if @fablepet.secondary_color != @fablepet.primary_color %>
+          <img src = <%= "/assets/fables/colors/" + @fablepet.secondary_color.to_s + ".png" %> width="50px" >
+        <%end %>
+        <%if @fablepet.tertiary_color != @fablepet.primary_color and @fablepet.tertiary_color != @fablepet.secondary_color %>
           <img src = <%= "/assets/fables/colors/" + @fablepet.tertiary_color.to_s + ".png" %> width="50px" >
         <% end %>
         <% @fablepet.all_colors.each do |i|%>
@@ -36,6 +41,9 @@
   </div>
   <div class = "profile_outer_info"> 
     <font color = #ffffff size=4>Elements: <%= @fablepet.all_elements.count%> / <%= @num_elements %></font>
+    <% if @is_owned %> 
+      <%= link_to "Edit", fablepet_elements_path(@fablepet.unique_name)%> 
+    <% end %>
     <div class = "profile_inner_info">
       <center>
         <img src = <%= "/assets/elements/" + @fablepet.curr_element.to_s + ".png" %> width="50px" >
@@ -49,6 +57,9 @@
   </div>
   <div class = "profile_outer_info"> 
     <font color = #ffffff size=4>Stats: <%= @fablepet.stat_total%> Points, Level <%= @fablepet.level%> </font>
+    <% if @is_owned %> 
+      <%= link_to "Edit", fablepet_stats_path(@fablepet.unique_name)%> 
+    <% end %>
     <div class = "profile_inner_info">
       <center>
         HP: <%= @fablepet.curr_hp%> / <%= @fablepet.hp%><br>

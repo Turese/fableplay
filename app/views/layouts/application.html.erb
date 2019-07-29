@@ -44,7 +44,7 @@
     <% if current_user.active_pet %>
       <div class="petsidebar">
         <center>
-          <img src=<%="/assets/fables/pets/" + current_user.active_pet + ".png" %> width="100%">
+          <img src=<%=Fablepet.find(current_user.active_pet).image_url %> width="100%">
         </center>
       </div>
     <% end %>

@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<center><h1>Editing Colors</h1></center>
+<div class = "pet_info">
+	<div class = "pet_pic">
+		<img src= <%= @img_string%> width="100%", height="100%">
+	</div>
+</div>
+
+<div class="profile_info">
+	<div class = "profile_outer_info"> 
+		<font color = #ffffff size=4>Colors</font>
+		<div class= "profile_inner_info">
+			<center><%= render 'colorsform' %></center>
+		</div>
+	</div>
+</div>
