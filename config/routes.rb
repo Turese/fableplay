@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :users, except: [:destroy, :update, :edit], param: :username
+  resources :users, except: [:destroy, :edit], param: :username
   get 'preferences', to: 'users#preferences', as: 'preferences'
 
   resources :fablepets, except: [:destroy, :edit], param: :unique_name do
