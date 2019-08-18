@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   self.primary_key = 'username'
   has_many :fablepets, foreign_key: :unique_name, primary_key: :username
+  has_many :items
   has_secure_password
 
 
