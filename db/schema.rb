@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190729004130) do
+ActiveRecord::Schema.define(version: 20190817000924) do
 
   create_table "elements", force: :cascade do |t|
     t.string  "name"
@@ -64,6 +64,18 @@ ActiveRecord::Schema.define(version: 20190729004130) do
   end
 
   add_index "fablepets", ["unique_name"], name: "index_fablepets_on_unique_name", unique: true
+
+  create_table "item_profiles", force: :cascade do |t|
+    t.string  "name",                      null: false
+    t.integer "kind",        default: 0,   null: false
+    t.integer "rarity",      default: 100, null: false
+    t.string  "flavor_text",               null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string  "username", null: false
+    t.integer "item_id",  null: false
+  end
 
   create_table "users", id: false, force: :cascade do |t|
     t.string   "email"

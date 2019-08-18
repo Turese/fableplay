@@ -93,3 +93,4 @@ Fablepet.create({
     all_elements: [0,1,2,3],
     all_colors: [0,1,3,5,6,7,13,23]
 })
+
