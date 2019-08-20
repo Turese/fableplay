@@ -1,3 +1,17 @@
 // Place all the styles related to the item controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.itembox {
+  min-height: wrap-content;
+  min-width: wrap-content;
+  margin: 5px;
+  padding: 5px;
+  float: left;
+  z-index: 1;
+  overflow-x: hidden;
+  border:5px solid #7d4d30;
+  margin-top:5px;
+  -webkit-border-radius: 10px!important;
+  border-radius: 10px!important
+}
