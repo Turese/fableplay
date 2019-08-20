@@ -12,7 +12,7 @@ Rails.application.routes.draw do
    get 'inventory', to: 'items#index', as: 'inventory'
 
    resources :item_profiles, only: [:index]
-   get 'search', to: 'item_profiles#index', as: 'search'
+   get 'allitems', to: 'item_profiles#index', as: 'search'
 
   resources :sessions, only: [:new, :create, :destroy]
 

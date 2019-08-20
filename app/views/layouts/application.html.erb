@@ -52,7 +52,7 @@
   <div class="sidenav">
     <% if current_user %>
     <%= link_to 'Your Fablepets', fablepets_path %>
-    <a href="#2">Inventory</a>
+    <a href=<%= inventory_path %>>Inventory</a>
     <a href="#3">Marketplace</a>
     <% else %>
     <%= link_to 'Sign Up', signup_path %>

@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Inventory</h1>
+
+
+    <% @item_infos.each do |item| %>
+      <div class = "itembox">
+          <center>
+            <b><%=item.name %></b>
+            <br>
+            <%= image_tag('/assets/items/'+item.id.to_s+'.png', :alt => "wow") %>
+            <br>
+            Rarity: <%=item.rarity %>
+            <br>
+            <%= button_to "Submit", { :action => "index" }, :method => :get %>
+          </center>
+        </div>
+    <% end %>
+</table>
+
+<br>
